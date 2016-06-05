@@ -2,7 +2,7 @@
 #
 # The purpose of this file is to exercise some Python via basic cryptology.
 #
-# This program automatically execute a unit test to ensure valid results.
+# This program automatically executes a unit test to ensure valid results.
 #
 #-------------------------------------------------------------------------------
 
