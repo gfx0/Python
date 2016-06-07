@@ -1,3 +1,4 @@
+import random
 import math
 from math import log2
 from math import ceil
@@ -16,18 +17,44 @@ def play_one_game():
             print("Please type the numbers with a space.")
 
     rangeNum = rangeEnd - rangeStart
-    print ( rangeNum )
-    if rangeNum == 1:
-        print("The range you gave is too small, there can be only one guess.")
+    #debug#print ( rangeNum )
+    if rangeNum <= 1 or rangeStart < 0 or rangeEnd < 0:
+        print("The range you is too small or erroneous(range too small?).")
         print("Please write a better range.")
         play_one_game()
 
     triesLeft = ceil(math.log2(rangeNum))
-    print( "triesLeft: ", triesLeft )
-    
-    print ( "I have picked a number between 0 and 200, what's your guess?" )
+    #debug#print( "triesLeft: ", triesLeft )
 
-    #todo: write the guessing logic
+    magicNumber = -1
+    for i in range(100):
+        magicNumber = random.randrange(rangeStart, rangeEnd);
+
+    #debug#print ( "the magic number: ", magicNumber)
+    print ( "\nI have picked a number between", rangeStart,
+            "and", rangeEnd,", what's your guess?" )
+
+    #lol pessimistic assumption
+    userLostTheGame = True
+    for tryNumber in range(triesLeft):
+        print("You have", triesLeft - tryNumber, "tries left.\n")
+        guess = int(input())
+        print()#for dat extra\n
+        if ( guess < magicNumber ):
+            print("This number is lower than the number I have in mind! Next try?")
+        elif ( guess > magicNumber ):
+            print("This number is higher than the number I have in mind! Another guess?")
+        else:
+            userLostTheGame = False
+            print("Thaat's right! That was my number!")
+            break
+
+    if ( userLostTheGame ):
+        print("You ran out of tries, sorry :(\n")
+
+    playAgain = input("Play again? y/n: ")
+    if ( playAgain.lower() == 'y' ):
+        play_one_game()
 
 def start_game():
     play_one_game()
